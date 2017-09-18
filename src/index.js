@@ -2,19 +2,27 @@
 
 import React from 'react'
 import {render} from 'react-dom'
-import { Layout, Menu, Breadcrumb } from 'antd';
-import { Modal, Button } from 'antd';
+import { Layout, Menu, Breadcrumb, Modal, Button, message } from 'antd';
 const { Header, Content, Footer } = Layout;
+import { LocaleProvider } from 'antd';
+import enUS from 'antd/lib/locale-provider/en_US';
+
+const info = () => {
+    message.info('No please dont leave.');
+};
+
+const list = () => {
+    message.success('Here we go.');
+};
 
 class App extends React.Component {
-
     constructor(props) {
         super(props);
         this.state = {
             content: "Jujhar was here",
             visible: false
         };
-    }
+    };
 
     // Bread crumb click
     dropNotification() {
@@ -62,6 +70,7 @@ class App extends React.Component {
 
         console.log(this.props.donkey);
         return (
+            <LocaleProvider locale={enUS}>
             <Layout>
                 <Header style={{ position: 'fixed', width: '100%' }}>
                     <div className="logo"/>
@@ -80,8 +89,8 @@ class App extends React.Component {
                 </Header>
                 <Content style={{ padding: '0 50px', marginTop: 64 }}>
                     <Breadcrumb style={{ margin: '12px 0' }}>
-                        <Breadcrumb.Item>Home</Breadcrumb.Item>
-                        <Breadcrumb.Item>List</Breadcrumb.Item>
+                        <Breadcrumb.Item onClick={info}>Home</Breadcrumb.Item>
+                        <Breadcrumb.Item onClick={list}>List</Breadcrumb.Item>
                         <Breadcrumb.Item onClick={this.dropNotification.bind(this)}>App</Breadcrumb.Item>
                     </Breadcrumb>
                     <div style={{ background: 'indigo', color: 'white', padding: 24, minHeight: 380 }}>
@@ -107,6 +116,7 @@ class App extends React.Component {
                     Ant Design ©2016 Created by Ant UED
                 </Footer>
             </Layout>
+            </LocaleProvider>
         )
     }
 }
